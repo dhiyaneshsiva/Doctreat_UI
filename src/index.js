@@ -1,17 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+// React
+import React from "react";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+// RR Dom
+import ReactDOM from "react-dom";
+
+//React  Router
+import { HashRouter } from "react-router-dom";
+
+// Redux Store & Providers
+import { reduxStore } from "./StateHandler/Store/Store";
+import { Provider } from "react-redux";
+
+// React Query
+import { QueryClient, QueryClientProvider } from "react-query";
+
+// Mantine Packages
+import { MantineProvider } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
+import { Notifications } from "@mantine/notifications";
+
+// Query Client init
+const queryClient = new QueryClient();
+
+ReactDOM.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <HashRouter>
+      <QueryClientProvider client={queryClient}>
+        <MantineProvider>
+          <ModalsProvider>
+            <Provider store={reduxStore}>
+              <Notifications
+                position="top-right"
+                zIndex={12345678}
+                autoClose={2200}
+                withBorder
+              />
+              Hello ALl
+            </Provider>
+          </ModalsProvider>
+        </MantineProvider>
+      </QueryClientProvider>
+    </HashRouter>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
